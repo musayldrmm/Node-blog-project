@@ -6,69 +6,100 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
+<body onload="created()">
 <div class='all'>
-  <div class='admin-header'>
-    <div class='header-text'>
-      <h3>Admin Panel 2.0</h3>
-      <div class='header-greet'>
-        <span>Hello Admin</span>
-        <a href='' class='logout-btn'><svg width="14" height="14" viewBox="0 0 24 24"><path fill="#fff" d="M14 12h-4v-12h4v12zm4.213-10.246l-1.213 1.599c2.984 1.732 5 4.955 5 8.647 0 5.514-4.486 10-10 10s-10-4.486-10-10c0-3.692 2.016-6.915 5-8.647l-1.213-1.599c-3.465 2.103-5.787 5.897-5.787 10.246 0 6.627 5.373 12 12 12s12-5.373 12-12c0-4.349-2.322-8.143-5.787-10.246z"/></svg></a>
-      </div>
-    </div>
-  </div>
-  <div class='admin-sidebar'>
-
-    <li>
-      <a onclick="whereChange('Users')">Users</a>
-    </li>
-    <li>
-      <a onclick="whereChange('Programs')">Programs</a>
-    </li>
-  </div>
-  <div class='center-content'>
-    <div class='all-border'>
-      <div class='shows-location'>
-        <div class='location-text'>
-          <span class='location' id="where"></p></span>
+    <div class='admin-header'>
+        <div class='header-text'>
+            <h3>Admin Panel 2.0</h3>
+            <div class='header-greet'>
+                <span>Hello Admin</span>
+                <a href='' class='logout-btn'>
+                    <svg width="14" height="14" viewBox="0 0 24 24">
+                        <path fill="#fff"
+                              d="M14 12h-4v-12h4v12zm4.213-10.246l-1.213 1.599c2.984 1.732 5 4.955 5 8.647 0 5.514-4.486 10-10 10s-10-4.486-10-10c0-3.692 2.016-6.915 5-8.647l-1.213-1.599c-3.465 2.103-5.787 5.897-5.787 10.246 0 6.627 5.373 12 12 12s12-5.373 12-12c0-4.349-2.322-8.143-5.787-10.246z"/>
+                    </svg>
+                </a>
+            </div>
         </div>
-      </div>
-      <br><br>
-      <div id="data">
-
-      </div>
     </div>
-  </div>
+    <div class='admin-sidebar'>
+
+        <li>
+            <a onclick="whereChange('Users')">Users</a>
+        </li>
+        <li>
+            <a onclick="whereChange('Programs')">Programs</a>
+        </li>
+    </div>
+    <div class='center-content'>
+        <div class='all-border'>
+            <div class='shows-location'>
+                <div class='location-text'>
+                    <span class='location' id="where"></p></span>
+                </div>
+            </div>
+            <br><br>
+            <div>
+                <table id="data">
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 <script>
+    function created() {
+        let where = 'Admin >> User';
+        let data = "lorem ipsum"
+        document.getElementById('where').innerText = where;
+        document.getElementById('data').innerText = data;
+        whereChange('Users');
+    }
 
-  let where = 'Admin >> User';
-  let data = "lorem ipsum"
+    function whereChange(yer) {
+        let xhr = new XMLHttpRequest();
+        xhr.responseType = 'json';
+        xhr.open("GET", 'http://127.0.0.1:3000/admin', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send();
 
-  document.getElementById('where').innerText = where;
-  document.getElementById('data').innerText = data;
+        xhr.onload = function () {
+            if (xhr.status == 200) {
+                if (yer == 'Users') {
+                    let tableString = `<tr>
+                        <th>Name</th>
+                        <th>Surname</th>
+                        <th>Email</th>
+                        <th>Delete</th>
+                    </tr>`
+                    for (let i = 0; i < 10; i++) {
+                        console.log(i)
+                        tableString = tableString + '<tr><td>' + i + '</td><td>' + i + '</td><td>' + i + '</td><td><button onclick="deleteUser()" class="delete">Delete </button></td></tr>';
+                    }
+                    document.getElementById('data').innerHTML = tableString;
+                } else {
+                    let tableString = `<tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Delete</th>
+                    </tr>`
+                    for (let i = 0; i < 10; i++) {
+                        console.log(i)
+                        tableString = tableString + '<tr><td>' + i + '</td><td>' + i + '</td><td><button onclick="deleteProgram()"  class="delete">Delete </button></td></tr>';
+                    }
+                    document.getElementById('data').innerHTML = tableString;
 
-  function whereChange(yer){
-    let xhr = new XMLHttpRequest();
-          xhr.responseType = 'json';
-          xhr.open("GET",'http://127.0.0.1:3000/admin', true);
-          xhr.setRequestHeader('Content-Type', 'application/json');
-          xhr.send();
+                }
+            };
+        }
+    }
 
-      xhr.onload = function() {
-        if(xhr.status == 200){
-          console.log(xhr.response)
-        
-          if (yer == 'Users'){
+    function deleteUser(id) {
+        console.log(id);
+    };
+    function deleteProgram() {
 
-          }else {
-
-
-          }
-        };   
-      }
-  }
+    }
 
 </script>
 </html>
