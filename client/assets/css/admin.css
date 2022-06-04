@@ -209,7 +209,7 @@ tr:nth-child(even) {
 .delete:hover {
     padding: 10px;
     margin: 5px 0px 0px 0px;
-    width: 200px;
+    width: 80px;
     height: 50px;
     border-radius: 20px;
     outline: none;

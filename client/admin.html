@@ -64,6 +64,7 @@
         xhr.send();
 
         xhr.onload = function () {
+          
             if (xhr.status == 200) {
                 if (yer == 'Users') {
                     let tableString = `<tr>
@@ -72,9 +73,11 @@
                         <th>Email</th>
                         <th>Delete</th>
                     </tr>`
-                    for (let i = 0; i < 10; i++) {
-                        console.log(i)
-                        tableString = tableString + '<tr><td>' + i + '</td><td>' + i + '</td><td>' + i + '</td><td><button onclick="deleteUser()" class="delete">Delete </button></td></tr>';
+                    console.log(xhr.response.user[0]._id);
+                    for (let i = 0; i < xhr.response.user.length; i++) {
+                        tableString = tableString + '<tr><td>' + xhr.response.user[i].name + '</td><td>' + 
+                          xhr.response.user[i].surname + '</td><td>' +
+                            xhr.response.user[i].email + `</td><td><button onclick="deleteUser(${xhr.response.user[i]})" class='delete'>Delete </button></td></tr>`;
                     }
                     document.getElementById('data').innerHTML = tableString;
                 } else {
@@ -94,8 +97,8 @@
         }
     }
 
-    function deleteUser(id) {
-        console.log(id);
+    function deleteUser(user) {
+        console.log("id");
     };
     function deleteProgram(id) {
         console.log(id);
