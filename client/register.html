@@ -44,13 +44,21 @@
     function login() {
         user.email= document.getElementById("email2").value ;
         user.password= document.getElementById("password2").value ;
-        fetch('http://127.0.0.1:3000/user/login').then(function (response) {
+
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST",'http://127.0.0.1:3000/user/login', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify({
+            value: user
+        }));
+
+       /* fetch('http://127.0.0.1:3000/user/login').then(function (response) {
             // The API call was successful!
             console.log('success!', response);
         }).catch(function (err) {
             // There was an error
             console.warn('Something went wrong.', err);
-        });
+        });*/
     }
     function signup() {
         fetch('http://127.0.0.1:3000/user/register').then(function (response) {
