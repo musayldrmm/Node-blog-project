@@ -63,7 +63,7 @@
           let userıd = localStorage.getItem("userId");
           let xhr = new XMLHttpRequest();
           xhr.responseType = 'json';
-          xhr.open("GET",'http://127.0.0.1:3000/admin', true);
+          xhr.open("GET",'http://127.0.0.1:3000/profile?id='+localStorage.getItem("userId"), true);
           xhr.setRequestHeader('Content-Type', 'application/json');
           xhr.send();
 
@@ -72,6 +72,11 @@
                 console.log(xhr.response)
               userData = xhr.response.user
               program = xhr.response.program
+              document.getElementById('name').innerText=userData.name  
+              document.getElementById('about').innerText=userData.email
+
+              document.getElementById('title').innerText= program[0].Programname
+              document.getElementById('dis').innerText=program[0].ProgramDesc
               }
           };
       date();   

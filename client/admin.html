@@ -10,10 +10,10 @@
 <div class='all'>
     <div class='admin-header'>
         <div class='header-text'>
-            <h3>Admin Panel 2.0</h3>
+            <h3>Fitness Diary Admin Panel 2.0</h3>
             <div class='header-greet'>
                 <span>Hello Admin</span>
-                <a href='' class='logout-btn'>
+                <a onclick="logout()" class='logout-btn'>
                     <svg width="14" height="14" viewBox="0 0 24 24">
                         <path fill="#fff"
                               d="M14 12h-4v-12h4v12zm4.213-10.246l-1.213 1.599c2.984 1.732 5 4.955 5 8.647 0 5.514-4.486 10-10 10s-10-4.486-10-10c0-3.692 2.016-6.915 5-8.647l-1.213-1.599c-3.465 2.103-5.787 5.897-5.787 10.246 0 6.627 5.373 12 12 12s12-5.373 12-12c0-4.349-2.322-8.143-5.787-10.246z"/>
@@ -53,7 +53,7 @@
         let data = "lorem ipsum"
         document.getElementById('where').innerText = where;
         document.getElementById('data').innerText = data;
-        whereChange('Users');
+        whereChange();
     }
 
     function whereChange(yer) {
@@ -64,7 +64,7 @@
         xhr.send();
 
         xhr.onload = function () {
-          
+          console.log(xhr.response)
             if (xhr.status == 200) {
                 if (yer == 'Users') {
                     let tableString = `<tr>
@@ -73,22 +73,24 @@
                         <th>Email</th>
                         <th>Delete</th>
                     </tr>`
-                    console.log(xhr.response.user[0]._id);
                     for (let i = 0; i < xhr.response.user.length; i++) {
                         tableString = tableString + '<tr><td>' + xhr.response.user[i].name + '</td><td>' + 
                           xhr.response.user[i].surname + '</td><td>' +
-                            xhr.response.user[i].email + `</td><td><button onclick="deleteUser(${xhr.response.user[i]})" class='delete'>Delete </button></td></tr>`;
+                            xhr.response.user[i].email + "</td><td><button onclick=\"deleteUser('"+xhr.response.user[i]._id+"')\" class=\"delete\">Delete </button></td></tr>";
                     }
                     document.getElementById('data').innerHTML = tableString;
                 } else {
+                  console.log(xhr.response.program[0].Programname);
                     let tableString = `<tr>
                         <th>Name</th>
                         <th>Description</th>
                         <th>Delete</th>
                     </tr>`
-                    for (let i = 0; i < 10; i++) {
+                    for (let i = 0; i < xhr.response.program.length; i++) {
                         console.log(i)
-                        tableString = tableString + '<tr><td>' + i + '</td><td>' + i + '</td><td><button onclick="deleteProgram()"  class="delete">Delete </button></td></tr>';
+                        tableString = tableString + '<tr><td>' + 
+                          xhr.response.program[i].Programname + '</td><td>' + 
+                            xhr.response.program[i].ProgramDesc + "</td><td><button onclick=\"deleteUser('"+xhr.response.program[i]._id+"')\" class=\"delete\">Delete </button></td></tr>";
                     }
                     document.getElementById('data').innerHTML = tableString;
 
@@ -97,11 +99,15 @@
         }
     }
 
-    function deleteUser(user) {
-        console.log("id");
+    function deleteUser(id) {
+        console.log(id);
     };
     function deleteProgram(id) {
         console.log(id);
+    }
+    function logout(){
+      localStorage.clear();
+      window.location.href = './index.html';
     }
 
 </script>
