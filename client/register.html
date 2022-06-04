@@ -11,23 +11,56 @@
     <input type="checkbox" id="chk" aria-hidden="true">
 
     <div class="signup">
-        <form>
+        <form >
             <label for="chk" aria-hidden="true">Sign up</label>
-            <input type="text" name="txt" placeholder="User name" required="">
-            <input type="email" name="email" placeholder="Email" required="">
-            <input type="password" name="pswd" placeholder="Password" required="">
-            <button>Sign up</button>
+            <input id="name" type="text" name="name" placeholder="User" required="">
+            <input id="surname" type="text" name="surname" placeholder="Surname" required="">
+            <input id="email" type="email" name="email" placeholder="Email" required="">
+            <input id="password" type="password" name="password" placeholder="Password" required="">
         </form>
+        <a onclick="signup()"><button>Sign up</button></a>
     </div>
 
     <div class="login">
-        <form>
+        <form >
             <label for="chk" aria-hidden="true">Login</label>
-            <input type="email" name="email" placeholder="Email" required="">
-            <input type="password" name="pswd" placeholder="Password" required="">
-            <button>Login</button>
+            <input id="email2" type="email" name="email" placeholder="Email" required="">
+            <input id="password2" type="password" name="password" placeholder="Password" required="">
         </form>
+            <a onclick="login()"><button >Login</button></a>
     </div>
 </div>
 </body>
+<script >
+
+    let user = {
+        name : '',
+        surname:'',
+        email:'',
+        password:'',
+    }
+
+
+    function login() {
+        user.email= document.getElementById("email2").value ;
+        user.password= document.getElementById("password2").value ;
+        fetch('http://127.0.0.1:3000/user/login').then(function (response) {
+            // The API call was successful!
+            console.log('success!', response);
+        }).catch(function (err) {
+            // There was an error
+            console.warn('Something went wrong.', err);
+        });
+    }
+    function signup() {
+        fetch('http://127.0.0.1:3000/user/register').then(function (response) {
+            // The API call was successful!
+            console.log('success!', response);
+        }).catch(function (err) {
+            // There was an error
+            console.warn('Something went wrong.', err);
+        });
+    }
+
+</script>
 </html>
