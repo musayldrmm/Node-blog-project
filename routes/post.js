@@ -9,8 +9,8 @@ router.get('/:id', (req, res) => {
 router.post("/:id", async (req, res) => {
     try {
       let NewPost = new Post({
-        Programname: req.body.Programname,
-        ProgramDesc: req.body.ProgramDesc,
+        Programname: req.body.value.Programname,
+        ProgramDesc: req.body.value.ProgramDesc,
         Programowner:req.params.id
       });
       await NewPost.save();
