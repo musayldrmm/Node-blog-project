@@ -50,15 +50,24 @@
   document.getElementById('data').innerText = data;
 
   function whereChange(yer){
+    let xhr = new XMLHttpRequest();
+          xhr.responseType = 'json';
+          xhr.open("GET",'http://127.0.0.1:3000/admin', true);
+          xhr.setRequestHeader('Content-Type', 'application/json');
+          xhr.send();
 
-    if (yer == 'Users'){
+      xhr.onload = function() {
+        if(xhr.status == 200){
+          console.log(xhr.response)
+        
+          if (yer == 'Users'){
 
-    }else {
+          }else {
 
-    }
 
-    where = 'Admin >> '+ yer;
-    document.getElementById('where').innerText = where;
+          }
+        };   
+      }
   }
 
 </script>

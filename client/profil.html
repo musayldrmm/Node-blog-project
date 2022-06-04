@@ -1,104 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
-<link rel="stylesheet" href="./assets/css/profil.css">
-<head>
-    <meta charset="UTF-8">
+  <link rel="stylesheet" href="./assets/css/profil.css" />
+  <head>
+    <meta charset="UTF-8" />
     <title>Title</title>
-</head>
+  </head>
 
-<body onload="created()">
-<div class="mobile">
-  <div class="mobile-content">
-    <div class="content">
-      <img src="./assets/img/men.png" alt="instructor" border="0" style="position:relative;">
+  <body onload="created()">
+    <div class="mobile">
+      <div class="mobile-content">
+        <div class="content">
+          <img
+            src="./assets/img/men.png"
+            alt="instructor"
+            border="0"
+            style="position: relative"
+          />
 
-      <div class="glassmorphism-card" style="position: absolute;bottom: 5px;left: 20px;">
-        <h1 id="name"></h1>
-        <p>Fitness Diary</p>
+          <div
+            class="glassmorphism-card"
+            style="position: absolute; bottom: 5px; left: 20px"
+          >
+            <h1 id="name"></h1>
+            <p>Fitness Diary</p>
+          </div>
+        </div>
+        <div class="description">
+          <h1>About</h1>
+          <p id="about"></p>
+          <br />
+          <div
+            class="glassmorphism-card"
+            style="height: 150px; display: flex; align-items: center"
+          >
+            <div class="glassmorphism-circle" style="margin-right: 1rem">
+              <h1 style="font-weight: 500" id="day"></h1>
+              <span style="font-size: 0.8rem" id="mounth"></span>
+            </div>
+            <div>
+              <span
+                style="font-size: 0.9rem; display: block; margin-bottom: 0.5rem"
+                id="title"
+              ></span>
+
+              <span
+                style="font-size: 0.8rem; display: block; opacity: 0.6"
+                id="dis"
+              ></span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="description">
-      <h1>About</h1>
-      <p id="about"></p>
-      <br>
-      <div class="glassmorphism-card" style="height:150px;display:flex;align-items:center;">
-        <div class="glassmorphism-circle" style="margin-right:1rem;">
-          <h1 style="font-weight:500;" id="day"></h1>
-          <span style="font-size:0.8rem;" id="mounth"></span>
-        </div>
-        <div>
-          <span style="font-size:0.9rem;display:block;margin-bottom:0.5rem;" id="title"></span>
+  </body>
+  <script>
+    function created(){
+      if (!localStorage.getItem("userId")){
+              window.location.href = './register.html';
+          }
+          let userData
+          let program
+          let userıd = localStorage.getItem("userId");
+          let xhr = new XMLHttpRequest();
+          xhr.responseType = 'json';
+          xhr.open("GET",'http://127.0.0.1:3000/admin', true);
+          xhr.setRequestHeader('Content-Type', 'application/json');
+          xhr.send();
 
-          <span style="font-size:0.8rem;display:block;opacity:0.6;" id="dis"></span>
-        </div>
-
-      </div>
-    </div>
-  </div>
-</div>
-</body>
-<script>
-  function created(){
-    if (localStorage.getItem("userId")){
-            window.location.href = './register.html';
-        }
-    document.getElementById('name').innerText = 'omerfruk';
-    document.getElementById('about').innerText = 'denemedenemendemdmende';
-
-    date();
-    program();
-  }
-
-  function program() {
-    document.getElementById('title').innerText = 'omerfruk1';
-    document.getElementById('dis').innerText = 'denemedenemendemdmende1';
-  }
-
-  function date() {
-    let currentdate = new Date();
-    let day =  currentdate.getDate()
-    let month
-    switch (currentdate.getMonth()+1) {
-      case 1:
-        month= "January ";
-        break;
-      case 2:
-        month= "February ";
-        break;
-      case 3:
-        month= "March ";
-        break;
-      case 4:
-        month= "April ";
-        break;
-      case 5:
-        month= "May ";
-        break;
-      case 6:
-        month= "June ";
-        break;
-      case 7:
-        month= "July ";
-        break;
-      case 8:
-        month= "August ";
-        break;
-      case 9:
-        month= "September ";
-        break;
-      case 10:
-        month= "October ";
-        break;
-      case 11:
-        month= "November ";
-        break;
-      case 12:
-        month= "December ";
-        break;
+      xhr.onload = function() {
+              if(xhr.status == 200){
+                console.log(xhr.response)
+              userData = xhr.response.user
+              program = xhr.response.program
+              }
+          };
+      date();   
     }
-    document.getElementById('day').innerText = day;
-    document.getElementById('mounth').innerText = month;
-  }
 
-</script>
+    function date() {
+      let currentdate = new Date();
+      let day =  currentdate.getDate()
+      let month
+      switch (currentdate.getMonth()+1) {
+        case 1:
+          month= "January ";
+          break;
+        case 2:
+          month= "February ";
+          break;
+        case 3:
+          month= "March ";
+          break;
+        case 4:
+          month= "April ";
+          break;
+        case 5:
+          month= "May ";
+          break;
+        case 6:
+          month= "June ";
+          break;
+        case 7:
+          month= "July ";
+          break;
+        case 8:
+          month= "August ";
+          break;
+        case 9:
+          month= "September ";
+          break;
+        case 10:
+          month= "October ";
+          break;
+        case 11:
+          month= "November ";
+          break;
+        case 12:
+          month= "December ";
+          break;
+      }
+      document.getElementById('day').innerText = day;
+      document.getElementById('mounth').innerText = month;
+    }
+  </script>
 </html>
