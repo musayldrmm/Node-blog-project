@@ -1,31 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <link rel="stylesheet" href="assets/css/index.css">
+<link rel="stylesheet" href="assets/css/indexChard.css.css">
+
 <header>
-    <img src="https://avatars.githubusercontent.com/u/63151113?s=280&v=4" width="100px" draggable="false">
-    <h1 class="title">ARCA<em>DAO</em></h1>
-    <h1>An AirWave Community Fund A</h1>
+    <img src="assets/img/logo.png" width="100px" draggable="false">
+    <h1 class="title">Personal<em> Diary</em></h1>
+    <h1>Personal Diary</h1>
     <h1 class="underline">__________</h1>
 </header>
-<body>
+<body onload="created()">
 <div class="info">
-    <h3>Arca is a Decentralized</h3>
-    <h3>Autonomous Organisation created</h3>
-    <h3>to promote</h3>
-    <h3>Decentralizition</h3>
+    <h3 id="h31"></h3>
+    <h3 id="h32"></h3>
+    <h3 id="h33"></h3>
+    <h3 id="h34"></h3>
 </div>
 <!-- buttons -->
-<button class="join">Join us</button>
+<a href="./register.html"><button  class="join" href="./regis">Join us</button></a>
 <div class="topbtns">
-    <button class="online">Online</button>
-    <button class="signup">Sign up</button>
+    <a href="./register.html"> <button class="signup">Sign up</button></a>
 </div>
 <!-- buttons -->
 <ul>
-    <li>What is ARCA?</li>
-    <li>Articles</li>
-    <li>Projects</li>
-    <li>Contact</li>
+    <a onclick="changeText('whatIs')"><li>What is Personal Diary?</li></a>
+    <a onclick="changeText('project')"><li>Projects</li></a>
 </ul>
 </body>
+
+<script>
+
+    function created() {
+        changeText('whatIs')
+    }
+    function changeText(area){
+        if (area == 'whatIs'){
+            document.getElementById("h31").innerHTML="Personal Diary is a bodybuilding system."
+            document.getElementById("h32").innerHTML="Chooses the most ideal program for you."
+            document.getElementById("h33").innerHTML="It finds the structure suitable for your body and brings you together with the most ideal program."
+            document.getElementById("h34").innerHTML="Please contact for more detailed information."
+        }
+        if (area == 'project'){
+            document.getElementById("h31").innerHTML="Our main goal is to provide a healthy life for ourselves and the people around us."
+            document.getElementById("h32").innerHTML="sports words keep fit and offer a better life"
+            document.getElementById("h33").innerHTML="our only goal is you."
+            document.getElementById("h34").innerHTML="."
+        }
+    }
+
+
+</script>
+
 </html>
