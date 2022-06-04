@@ -11,6 +11,7 @@ const admin = require('./routes/admin')
 const bodyParser = require("body-parser");
 const MongoStore = require("connect-mongo");
 const expressSession  = require('express-session');
+var cors = require('cors')
 
 const mongoose = require('mongoose');
 app.use(
@@ -24,6 +25,7 @@ app.use(
       })
   })
 );
+app.use(cors())
 
 app.use(bodyParser.urlencoded({ extended: false }));
 

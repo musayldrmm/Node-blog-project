@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="assets/css/register.css">
     <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
 </head>
-<body>
+<body onload="created()">
 <div class="main">
     <input type="checkbox" id="chk" aria-hidden="true">
 
@@ -33,6 +33,13 @@
 </body>
 <script >
 
+    function created(){
+        if ( localStorage.getItem("userId")){
+            console.log("sds");
+            window.location.href = './index.html';
+        }
+    }
+
     let user = {
         name : '',
         surname:'',
@@ -46,28 +53,32 @@
         user.password= document.getElementById("password2").value ;
 
         let xhr = new XMLHttpRequest();
-        xhr.open("POST",'http://127.0.0.1:3000/user/login', true);
+        xhr.open("POST",'http://127.0.0.1:3000/users/login', true);
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send(JSON.stringify({
             value: user
         }));
 
-       /* fetch('http://127.0.0.1:3000/user/login').then(function (response) {
-            // The API call was successful!
-            console.log('success!', response);
-        }).catch(function (err) {
-            // There was an error
-            console.warn('Something went wrong.', err);
-        });*/
+        xhr.onload = function() {
+            localStorage.setItem("userId",xhr.response);
+        };
     }
     function signup() {
-        fetch('http://127.0.0.1:3000/user/register').then(function (response) {
-            // The API call was successful!
-            console.log('success!', response);
-        }).catch(function (err) {
-            // There was an error
-            console.warn('Something went wrong.', err);
-        });
+        user.name = document.getElementById("name").value ;
+        user.surname = document.getElementById("surname").value ;
+        user.email= document.getElementById("email").value ;
+        user.password= document.getElementById("password").value ;
+        console.log(user)
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST",'http://127.0.0.1:3000/users/register', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify({
+            value: user
+        }));
+
+        xhr.onload = function() {
+            localStorage.setItem("userId",xhr.response);
+        };
     }
 
 </script>
